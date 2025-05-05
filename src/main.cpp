@@ -5,32 +5,37 @@
 using namespace geode::prelude;
 
 class $modify(ConfirmRestart, PauseLayer) {
-    CCMenuItemToggler* checkbox = nullptr;
+    CCMenuItemToggler* m_checkbox = nullptr;
 
-    bool init() {
+    bool init(bool fromReplay) {
+        if (!PauseLayer::init(fromReplay)) return false;
+
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
-        checkbox = CCMenuItemToggler::create(
+        m_checkbox = CCMenuItemToggler::create(
             checkboxOff,
             checkboxOn,
             this,
             menu_selector(ConfirmRestart::onCheckbox)
         );
-        auto menu = cocos2d::CCMenu::create();
-        checkbox->setPosition({ 25.f, 25.f }); // Padding from bottom-left corner
-        checkbox->setAnchorPoint({ 0.f, 0.f }); // Anchor to bottom-left
+        m_checkbox->setPosition({ 25.f, 25.f }); // Bottom-left corner
+        m_checkbox->setAnchorPoint({ 0.f, 0.f });
+
+        auto menu = CCMenu::create();
+        menu->addChild(m_checkbox);
+        menu->setPosition({ 0.f, 0.f });
         this->addChild(menu);
 
         return true;
     }
 
-    void onCheckbox(CCObject * sender) {
-        // You can handle checkbox toggle here if needed
+    void onCheckbox(CCObject*) {
+        // Optional: logic when checkbox toggled
     }
 
-    void onRestart(CCObject * sender) {
-        if (checkbox && checkbox->isOn()) {
+    void onRestart(CCObject* sender) override {
+        if (m_checkbox && m_checkbox->isOn()) {
             geode::createQuickPopup(
                 "Restart",
                 "Are you sure you want to restart?",
@@ -44,8 +49,7 @@ class $modify(ConfirmRestart, PauseLayer) {
                     }
                 }
             );
-        }
-        else {
+        } else {
             if (auto playLayer = GameManager::sharedState()->getPlayLayer()) {
                 playLayer->resetLevel();
                 this->onResume(nullptr);
