@@ -4,11 +4,12 @@
 
 using namespace geode::prelude;
 
+bool confirmReset = true;
+
 class $modify(ConfirmRestart, PauseLayer) {
-        struct Fields {
-            bool confirmReset = true;
-        };
-    CCMenuItemToggler* checkbox = nullptr;
+    struct Fields {
+        CCMenuItemToggler* checkbox = nullptr;    
+};
     void customSetup() {
         PauseLayer::customSetup();
 
