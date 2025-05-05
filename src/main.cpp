@@ -35,18 +35,10 @@ class $modify(ConfirmRestart, PauseLayer) {
     }
 
     void onCheckbox(CCObject*) {
-        this->scheduleOnce(schedule_selector(ConfirmRestart::updateConfirmResetState), 0.f);
-    }
-
-    void updateConfirmResetState(float) {
-        bool newState = m_fields->checkbox->isOn();
-        Mod::get()->setSavedValue("confirm-reset", newState);
     }
       void onRestart(CCObject* sender) {
-          bool confirmReset = Mod::get()->getSavedValue<bool>("confirm-reset", true);
-    }
-        if (m_fields->checkbox && confirmReset) {
-            geode::createQuickPopup(
+          if(checkbox = true) {
+              geode::createQuickPopup(
                 "Restart",
                 "Are you sure you want to restart?",
                 "No", "Yes",
