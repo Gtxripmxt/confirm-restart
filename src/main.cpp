@@ -36,10 +36,9 @@ class $modify(ConfirmRestart, PauseLayer) {
     }
 
     void onCheckbox(CCObject*) {
-        this->scheduleOnce([this](float) {
-            bool newState = m_fields->checkbox->isOn();
-            Mod::get()->setSavedValue("confirm-reset", newState);
-        }, 0.f, "save-confirm-reset");
+        bool newState = !m_fields->checkbox->isOn();
+        m_fields->checkbox->toggle(newState);
+        Mod::get()->setSavedValue("confirm-reset", newState);
     }
 
     void onRestart(CCObject* sender) {
