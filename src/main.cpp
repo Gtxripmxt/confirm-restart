@@ -9,8 +9,8 @@ using namespace geode::prelude;
 class $modify(ConfirmRestart, PauseLayer) {
     struct Fields {
         bool confirmReset = true;
-    };
-    CCMenuItemToggler* checkbox = nullptr; 
+        CCMenuItemToggler* checkbox = nullptr;
+    };  
 
     void customSetup() {
         PauseLayer::customSetup();
@@ -27,7 +27,9 @@ class $modify(ConfirmRestart, PauseLayer) {
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
         checkbox->toggle(m_fields->confirmReset);
-            
+        
+        m_fields->checkbox = checkbox; 
+        
         auto menu = CCMenu::create();
         menu->addChild(checkbox);
         menu->setPosition({ 0.f, 0.f });
