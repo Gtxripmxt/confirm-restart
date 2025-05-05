@@ -43,8 +43,9 @@ class $modify(ConfirmRestart, PauseLayer) {
                 this->onResume(nullptr);
             }
             if (auto playLayer = GameManager::sharedState()->getPlayLayer()) {
-                 playLayer->pauseGame();
+                 playLayer->pauseGame(bool p0));
             }
+        }
     }
       void onRestart(CCObject* sender) {
           if (m_fields->checkbox) {
