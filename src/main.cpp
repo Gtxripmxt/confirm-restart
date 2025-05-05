@@ -43,7 +43,7 @@ class $modify(ConfirmRestart, PauseLayer) {
                 this->onResume(nullptr);
             }
             if (auto playLayer = GameManager::sharedState()->getPlayLayer()) {
-                 playLayer->pauseGame(bool);
+                 playLayer->pauseGame(bool());
             }
         }
     }
