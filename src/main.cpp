@@ -8,7 +8,8 @@ bool confirmReset = true;
 
 class $modify(ConfirmRestart, PauseLayer) {
     struct Fields {
-        CCMenuItemToggler* checkbox = nullptr;    
+        // CCMenuItemToggler* checkbox = nullptr;    
+        Fields() : CCMenuItemToggler* checkbox(nullptr)
 };
     void customSetup() {
         PauseLayer::customSetup();
