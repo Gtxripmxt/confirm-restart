@@ -19,21 +19,19 @@ class $modify(ConfirmRestart, PauseLayer) {
         );
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
-
+        checkbox->toggle(confirmReset);
+            
         auto menu = CCMenu::create();
         menu->addChild(checkbox);
         menu->setPosition({ 0.f, 0.f });
         this->addChild(menu);
-
-        setField<"checkbox">(checkbox);
     }
-
     void onCheckbox(CCObject*) {
+        confirReset = !confirmReset;
     }
 
     void onRestart(CCObject* sender) {
-        auto checkbox = getField<"checkbox">();
-        if (checkbox && checkbox->isOn()) {
+        if (checkbox) {
             geode::createQuickPopup(
                 "Restart",
                 "Are you sure you want to restart?",
