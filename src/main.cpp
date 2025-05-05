@@ -35,6 +35,15 @@ class $modify(ConfirmRestart, PauseLayer) {
     }
 
     void onCheckbox(CCObject*) {
+        if (m_fields->checkbox) {
+            bool isChecked = m_fields->checkbox->isOn();
+            Mod::get()->setSavedValue("confirm-reset", isChecked);
+            if (auto playLayer = GameManager::sharedState()->getPlayLayer()) {
+                playLayer->resetLevel();
+                this->onResume(nullptr);
+            }
+            PlayLayer::pauseGame(bool p0);
+        }
     }
       void onRestart(CCObject* sender) {
           if (m_fields->checkbox) {
