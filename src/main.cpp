@@ -37,7 +37,7 @@ class $modify(ConfirmRestart, PauseLayer) {
     void onCheckbox(CCObject*) {
     }
       void onRestart(CCObject* sender) {
-          if(m_fields->checkbox = true) {
+          if (m_fields->checkbox) {
               geode::createQuickPopup(
                 "Restart",
                 "Are you sure you want to restart?",
