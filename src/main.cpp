@@ -2,12 +2,13 @@
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 
-bool confirmReset = true;
-
 using namespace geode::prelude;
 
 class $modify(ConfirmRestart, PauseLayer) {
     CCMenuItemToggler* checkbox = nullptr;
+        struct Fields {
+            bool confirmReset = true;
+        };
     void customSetup() {
         PauseLayer::customSetup();
 
