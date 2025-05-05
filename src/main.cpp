@@ -17,11 +17,10 @@ class $modify(ConfirmRestart, PauseLayer) {
             this,
             menu_selector(ConfirmRestart::onCheckbox)
         );
-
-        auto winSize = CCDirector::sharedDirector()->getWinSize();
+        auto menu = cocos2d::CCMenu::create();
         checkbox->setPosition({ 25.f, 25.f }); // Padding from bottom-left corner
         checkbox->setAnchorPoint({ 0.f, 0.f }); // Anchor to bottom-left
-        this->m_buttonMenu->addChild(checkbox);
+        this->addChild(menu);
 
         return true;
     }
