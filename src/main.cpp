@@ -23,11 +23,10 @@ class $modify(ConfirmRestart, PauseLayer) {
             this,
             menu_selector(ConfirmRestart::onCheckbox)
         );
+        m_fields->checkbox = checkbox;
         checkbox->toggle(savedConfirmReset);
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
-
-        m_fields->checkbox = checkbox;
 
         auto menu = CCMenu::create();
         menu->addChild(checkbox);
