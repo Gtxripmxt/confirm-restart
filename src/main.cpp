@@ -8,8 +8,6 @@ class $modify(ConfirmRestart, PauseLayer) {
     CCMenuItemToggler* checkbox = nullptr;
 
     bool init() {
-        if (!PauseLayer::init()) return false;
-
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
