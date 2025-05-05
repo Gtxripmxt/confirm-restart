@@ -1,0 +1,14 @@
+{
+	"geode": "4.3.1",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
+	},
+	"id": "gtxripmxt.confirm_restart",
+	"name": "Confirm Restart",
+	"version": "v1.0.0",
+	"developer": "Gtxripmxt",
+	"description": "adds a comfirmation warning when clicking the restart button"
+}
