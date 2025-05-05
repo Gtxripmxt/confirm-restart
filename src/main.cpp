@@ -6,7 +6,7 @@ using namespace geode::prelude;
 
 class $modify(ConfirmRestart, PauseLayer) {
     void customSetup() {
-        PauseLayer::customSetup(); // Call original first
+        PauseLayer::customSetup();
 
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
@@ -25,12 +25,10 @@ class $modify(ConfirmRestart, PauseLayer) {
         menu->setPosition({ 0.f, 0.f });
         this->addChild(menu);
 
-        // Save checkbox in Fields
         setField<"checkbox">(checkbox);
     }
 
     void onCheckbox(CCObject*) {
-        // Handle toggle if needed
     }
 
     void onRestart(CCObject* sender) {
