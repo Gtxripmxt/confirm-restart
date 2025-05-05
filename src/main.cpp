@@ -15,7 +15,7 @@ class $modify(ConfirmRestart, PauseLayer) {
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
-        bool savedConfirmReset = Mod::get()->getSavedValue<bool>("confirm-reset", true);
+        bool savedConfirmReset = Mod::get()->getSavedValue<bool>("confirm-reset", true);      
         
         auto checkbox = CCMenuItemToggler::create(
             checkboxOff,
@@ -23,9 +23,9 @@ class $modify(ConfirmRestart, PauseLayer) {
             this,
             menu_selector(ConfirmRestart::onCheckbox)
         );
+        checkbox->toggle(savedConfirmReset);
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
-        checkbox->toggle(savedConfirmReset);
 
         m_fields->checkbox = checkbox;
 
