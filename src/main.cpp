@@ -6,7 +6,6 @@ using namespace geode::prelude;
 
 class $modify(ConfirmRestart, PauseLayer) {
     struct Fields {
-        bool confirmReset = true;
         CCMenuItemToggler* checkbox = nullptr;
     };
 
@@ -16,6 +15,8 @@ class $modify(ConfirmRestart, PauseLayer) {
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
+        bool savedConfirmReset = Mod::get()->getSavedValue<bool>("confirm-reset", true);
+
         auto checkbox = CCMenuItemToggler::create(
             checkboxOff,
             checkboxOn,
@@ -24,7 +25,7 @@ class $modify(ConfirmRestart, PauseLayer) {
         );
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
-        checkbox->toggle(m_fields->confirmReset);
+        checkbox->toggle(savedConfirmReset);
 
         m_fields->checkbox = checkbox;
 
@@ -35,12 +36,15 @@ class $modify(ConfirmRestart, PauseLayer) {
     }
 
     void onCheckbox(CCObject*) {
-        m_fields->confirmReset = !m_fields->confirmReset;
-        m_fields->checkbox->toggle(m_fields->confirmReset);
+        bool newState = !m_fields->checkbox->isOn();
+        m_fields->checkbox->toggle(newState);
+        Mod::get()->setSavedValue("confirm-reset", newState);
     }
 
     void onRestart(CCObject* sender) {
-        if (m_fields->checkbox && m_fields->confirmReset) {
+        bool confirmReset = Mod::get()->getSavedValue<bool>("confirm-reset", true);
+
+        if (m_fields->checkbox && confirmReset) {
             geode::createQuickPopup(
                 "Restart",
                 "Are you sure you want to restart?",
