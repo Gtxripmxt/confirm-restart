@@ -2,6 +2,8 @@
 #include <Geode/modify/PauseLayer.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 
+bool confirmRestart = true;
+
 using namespace geode::prelude;
 
 class $modify(ConfirmRestart, PauseLayer) {
