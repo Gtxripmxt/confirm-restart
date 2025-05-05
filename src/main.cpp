@@ -27,7 +27,7 @@ class $modify(ConfirmRestart, PauseLayer) {
         this->addChild(menu);
     }
     void onCheckbox(CCObject*) {
-        confirReset = !confirmReset;
+        confirmReset = !confirmReset;
     }
 
     void onRestart(CCObject* sender) {
