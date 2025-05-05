@@ -15,6 +15,8 @@ class $modify(ConfirmRestart, PauseLayer) {
     void customSetup() {
         PauseLayer::customSetup();
 
+        m_fields->checkbox = checkbox; 
+
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
@@ -27,8 +29,6 @@ class $modify(ConfirmRestart, PauseLayer) {
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
         checkbox->toggle(m_fields->confirmReset);
-        
-        m_fields->checkbox = checkbox; 
         
         auto menu = CCMenu::create();
         menu->addChild(checkbox);
