@@ -35,9 +35,10 @@ class $modify(ConfirmRestart, PauseLayer) {
         this->addChild(menu);
     }
 
-      void onCheckbox(CCObject*) {
-          if (m_fields->checkbox) {
-            Mod::get()->setSavedValue("confirm-reset", m_fields->checkbox->isOn());
+    void onCheckbox(CCObject*) {
+        if (m_fields->checkbox) {
+            bool isChecked = m_fields->checkbox->isOn();
+            Mod::get()->setSavedValue("confirm-reset", isChecked);
         }
     }
       void onRestart(CCObject* sender) {
