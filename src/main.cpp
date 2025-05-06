@@ -1,6 +1,5 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/PauseLayer.hpp>
-#include <Geode/modify/PlayLayer.hpp>
 
 using namespace geode::prelude;
 
@@ -15,44 +14,47 @@ class $modify(ConfirmRestart, PauseLayer) {
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
+        bool saved = Mod::get()->getSavedValue("confirm-reset", true);
+
         auto checkbox = CCMenuItemToggler::create(
             checkboxOff,
             checkboxOn,
             this,
             menu_selector(ConfirmRestart::onCheckbox)
         );
-        checkbox->setPosition({ 25.f, 25.f });
-        checkbox->setAnchorPoint({ 0.f, 0.f });
-
-        bool saved = Mod::get()->getSavedValue("confirm-reset", true);
 
         if (checkbox->isOn() != saved) {
             checkbox->toggle(false);
         }
 
+        checkbox->setPosition({25.f, 25.f});
+        checkbox->setAnchorPoint({0.f, 0.f});
         m_fields->checkbox = checkbox;
 
         auto menu = CCMenu::create();
         menu->addChild(checkbox);
-        menu->setPosition({ 0.f, 0.f });
+        menu->setPosition({0.f, 0.f});
         this->addChild(menu);
 
         if (auto restartBtn = static_cast<CCMenuItemSpriteExtra*>(this->getChildByIDRecursive("restart-button"))) {
             restartBtn->setTarget(this, menu_selector(ConfirmRestart::onRestart));
         } else {
+            log::warn("Restart button not found");
         }
     }
 
     void onCheckbox(CCObject*) {
         if (m_fields->checkbox) {
-            bool isChecked = m_fields->checkbox->isOn();
-            Mod::get()->setSavedValue("confirm-reset", isChecked);
-            log::info("Checkbox toggled: {}", isChecked);
+            bool state = m_fields->checkbox->isOn();
+            Mod::get()->setSavedValue("confirm-reset", state);
+            log::info("Checkbox toggled: {}", state);
         }
     }
 
-    void onRestart(CCObject* sender) {
+    void onRestart(CCObject*) {
         bool shouldConfirm = Mod::get()->getSavedValue("confirm-reset", true);
+        log::info("Restart clicked, confirm-reset is: {}", shouldConfirm);
+
         if (shouldConfirm) {
             geode::createQuickPopup(
                 "Restart",
