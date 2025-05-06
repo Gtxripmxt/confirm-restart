@@ -34,21 +34,14 @@ class $modify(ConfirmRestart, PauseLayer) {
         this->addChild(menu);
     }
 
-    void onCheckbox(CCObject*) {
-        if (m_fields->checkbox) {
-            bool isChecked = m_fields->checkbox->isOn();
-            Mod::get()->setSavedValue("confirm-reset", isChecked);
-            if (auto playLayer = GameManager::sharedState()->getPlayLayer()) {
-                playLayer->resetLevel();
-                this->onResume(nullptr);
-            }
-            if (auto playLayer = GameManager::sharedState()->getPlayLayer()) {
-                 playLayer->pauseGame(bool());
-            }
+      void onCheckbox(CCObject*) {
+          if (m_fields->checkbox) {
+            Mod::get()->setSavedValue("confirm-reset", m_fields->checkbox->isOn());
         }
     }
       void onRestart(CCObject* sender) {
-          if (m_fields->checkbox) {
+        bool shouldConfirm = Mod::get()->getSavedValue("confirm-reset", true);
+          if (shouldConfirm) {
               geode::createQuickPopup(
                 "Restart",
                 "Are you sure you want to restart?",
