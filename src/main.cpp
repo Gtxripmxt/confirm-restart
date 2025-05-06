@@ -25,8 +25,9 @@ class $modify(ConfirmRestart, PauseLayer) {
         checkbox->setAnchorPoint({ 0.f, 0.f });
 
         bool saved = Mod::get()->getSavedValue("confirm-reset", true);
-        if (saved != checkbox->isOn()) {
-            checkbox->toggle(true);
+
+        if (checkbox->isOn() != saved) {
+            checkbox->toggle(false);
         }
 
         m_fields->checkbox = checkbox;
