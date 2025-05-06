@@ -12,11 +12,9 @@ class $modify(ConfirmRestart, PauseLayer) {
     void customSetup() {
         PauseLayer::customSetup();
 
-        // Create checkbox visuals
         auto checkboxOff = CCSprite::createWithSpriteFrameName("GJ_checkOff_001.png");
         auto checkboxOn = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
 
-        // Create toggler
         auto checkbox = CCMenuItemToggler::create(
             checkboxOff,
             checkboxOn,
@@ -26,25 +24,21 @@ class $modify(ConfirmRestart, PauseLayer) {
         checkbox->setPosition({ 25.f, 25.f });
         checkbox->setAnchorPoint({ 0.f, 0.f });
 
-        // Set toggle state from saved value
         bool saved = Mod::get()->getSavedValue("confirm-reset", true);
         if (saved != checkbox->isOn()) {
-            checkbox->toggle(true); // toggle only if needed
+            checkbox->toggle(true);
         }
 
         m_fields->checkbox = checkbox;
 
-        // Add to menu
         auto menu = CCMenu::create();
         menu->addChild(checkbox);
         menu->setPosition({ 0.f, 0.f });
         this->addChild(menu);
 
-        // Hook Restart button
         if (auto restartBtn = static_cast<CCMenuItemSpriteExtra*>(this->getChildByIDRecursive("restart-button"))) {
             restartBtn->setTarget(this, menu_selector(ConfirmRestart::onRestart));
         } else {
-            log::warn("Failed to find restart button");
         }
     }
 
